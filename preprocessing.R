@@ -60,7 +60,7 @@ for (i in 1:N){
       }
     else{
       for (var in 2:nVar)
-        yw[i,t,var] <- mean(yw_i[yw_i$tage.num==levels(yw_i$tage.num)[t], c("tage.num", cols_w, "event")[var]],na.rm=T)
+        yw[i,t,var] <- mean(yw_i[yw_i$tage.num==levels(yw_i$tage.num)[t], c("tage.num", cols_w, "event")[var]], na.rm=T)
       count <- count + 1
     }
   }
@@ -77,7 +77,6 @@ yw[,,19][yw[,,19]==0.5] <- 1
 Codes <- Codes[rowSums(yw[,,19]<0)==0]
 yw <- yw[rowSums(yw[,,19]<0)==0,,]
 yw[,,19][yw[,,19]==99] <- NA
-
 
 N <- length(yw[,1,1])
 
