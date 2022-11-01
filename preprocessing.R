@@ -98,11 +98,11 @@ for (i in 1:N){
 }
 
 
-#########################################################
-#########################################################
-## What follows is not necessary for our main analysis ##
-#########################################################
-#########################################################
+########################################################
+########################################################
+## What follows is not necessary for the main results ##
+########################################################
+########################################################
 
 ##################################
 # reshape the 3D data back to 2D #
@@ -160,10 +160,9 @@ summary(fit_cfa, fit.measures=TRUE, standardized=TRUE)
 eta_pool <- lavPredict(fit_cfa, method = "Bartlett")
 
 
-
-########################
-# lavaan (not working) #
-########################
+################################
+# lavaan (model not converged) #
+################################
 
 model_lavaan <- '
 
@@ -188,5 +187,7 @@ na ~~ na
 
 fit_lavaan <- lavaan(model_lavaan, data=yw_pool, auto.cov.lv.x=TRUE)
 parTable(fit_lavaan)
+summary(fit_lavaan, fit.measures=TRUE, standardized=TRUE)
 
+# eta_pool <- lavPredict(fit_lavaan, method = "Bartlett")
 

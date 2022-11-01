@@ -1,8 +1,11 @@
 set.seed(7)
 
 library(mclust)
+
+# parameter options for GMM (shape of gaussians) 
 modelNames <- c("EII", "VII", "EEI", "VEI", "EVI", "VVI", "VEI", "EEE", 
                 "VEE", "EVE", "VVE", "EEV", "VEV", "EVV", "VVI", "VVV")
+
 #########################################
 # Clustering applied by slicing by time #
 #########################################
@@ -10,13 +13,28 @@ modelNames <- c("EII", "VII", "EEI", "VEI", "EVI", "VVI", "VEI", "EEE",
 gmmCodes <- list()
 gmm <- list()
 
-# available ts
+# take all usable time points (34, 51-52 were not successfully fit)
 ts <- c(2:33, 35:50) 
+
+############################################
+# apply GMM clustering for all time points #
+############################################
+
 for (t in ts) {
   x <- yw[complete.cases(yw[,t,]),t,1:18]
   gmmCodes[[t]] <- Codes[complete.cases(yw[,t,])]
   gmm[[t]] <- Mclust(x, G=2, modelNames=modelNames)
 }
+
+########################################################
+########################################################
+## What follows is not necessary for the main results ##
+########################################################
+########################################################
+
+##################################################
+# apply GMM clustering for a specific time point #
+##################################################
 
 # time at 10 (43 missing out of 117)
 # sum(is.na(yw[,10,]))/17
@@ -61,18 +79,15 @@ gmm_40 <- Mclust(x, G=2, modelNames=modelNames)
 # gmm_40$classification
 # gmm_40$BIC
 
-#####################################################
-# Clustering applied by pooling all the time points #
-#####################################################
+################################################
+# apply GMM clustering by pooling all the data #
+################################################
 
 # pooled (xx missing out of 6089)
 # sum(is.na(yw_pool))/17
 x <- yw_pool[complete.cases(yw_pool),2:18]
 Codes_pool <- Codes_pool[complete.cases(yw_pool)]
 
-library(mclust)
-modelNames <- c("EII", "VII", "EEI", "VEI", "EVI", "VVI", "VEI", "EEE", 
-                "VEE", "EVE", "VVE", "EEV", "VEV", "EVV", "VVI", "VVV")
 gmm_pool <- Mclust(x, G=2, modelNames=modelNames)
 
 summary(gmm_pool)
@@ -87,16 +102,12 @@ gmm_pool$BIC
 gmm_pool$classification[Codes_pool=="NRIBE05"] # the trajectory of the person throughout time
 yw_pool[complete.cases(yw_pool),1:19][Codes_pool=="NRIBE05",c(1,19)] # the person did not drop out
 
-
 #####################
 # Check for AMACH11 #
 #####################
 
 gmm_pool$classification[Codes_pool== "AMACH11"] # the trajectory of the person throughout time
 yw_pool[complete.cases(yw_pool),1:19][Codes_pool=="AMACH11",c(1,19)] # the person dropped out
-
-# unique(yw_pool[,1])
-
 
 #####################
 # Check for SANSO03 #
