@@ -70,7 +70,7 @@ X[is.na(X)==TRUE] <- 0
 ##############################
 # parameters to be estimated #
 ##############################
-
+# gradient/gibbs sampler?
 alpha <- array(rnorm(2, mean=0, sd=0.01), c(2,1))
 beta <- array(rnorm(2, mean=0.99, sd=0.001), c(2,1))
 gamma <- array(rnorm(2*nVar, mean=0, sd=0.01), c(2,nVar))
@@ -82,8 +82,8 @@ A <- array(rnorm(2*nVar*2, mean=0, sd=0.01), c(2,nVar))
 # variables #
 #############
 K <- array(0, c(2,1))
-eta <- eta_ <- array(0, c(N,Nt,2))
-P <- P_ <- array(NA, c(N,Nt,2)); P[,1,] <- 100
+eta <- eta_ <- array(0, c(N,Nt,2)) # elements of initial eta are fixed to be a vector of zeros
+P <- P_ <- array(NA, c(N,Nt,2)); P[,1,] <- 100 # diagonal elements of initial P are set to some arbitrarily large constants 
 EF <- array(NA, c(N,Nt))
 y <- yw[,,19]
 v <- array(0, c(N,Nt))
