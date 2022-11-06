@@ -1,6 +1,6 @@
 set.seed(7)
 
-library(bssm)
+# library(bssm)
 library(car)  
 
 stateProb <- list()
@@ -10,7 +10,7 @@ stateProb <- list()
 ##################################
 
 for (t in ts){
-  if (gmm[[t]]$parameters$mean[18,1] > gmm[[t]]$parameters$mean[18,2]) 
+  if (gmm[[t]]$parameters$mean[dim(gmm[[t]]$parameters$mean)[1],1] > gmm[[t]]$parameters$mean[dim(gmm[[t]]$parameters$mean)[1],2]) 
     doClust <- 1
   else 
     doClust <- 2
