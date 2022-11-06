@@ -85,6 +85,7 @@ N <- length(yw[,1,1])
 # 1. substitute post-dropout NA values with ones #
 # 2. delete switch back                          #
 ##################################################
+
 for (i in 1:N){
   for (t in 2:Nt){
     if (is.na(yw[i,t,19]))
