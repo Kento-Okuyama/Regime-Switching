@@ -43,3 +43,7 @@ for (t in ts) {
   gmmCodes[[t]] <- Codes[complete.cases(yw[,t,])]
   gmm[[t]] <- Mclust(etas[[t]], G=2, modelNames=modelNames)
 }
+
+# all na variables are positively correlated with PANN09_state variable
+for (t in ts)
+  print(summary(fit_cfas[[t]], fit.measures=TRUE, standardized=TRUE)$pe[17,]$std.lv)

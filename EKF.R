@@ -32,6 +32,15 @@ for (i in 1:N){
   }
 }
 
+# write.csv(stateProb, file='stateProb.csv')
+# write.csv(y, file='y.csv')
+
+#######################
+# interpret stateProb #
+#######################
+# ID: 9, 58, 63, 74, 81, 82 did not drop out, and we classified them correctly 
+# -> small True Negative
+
 X <- yw[,,2:18]
 nVar <- length(X[1,1,])
 for (var in 1:nVar){
@@ -53,7 +62,7 @@ beta <- array(rnorm(2, mean=0.99, sd=0.001), c(2,1))
 gamma <- array(rnorm(2*nVar, mean=0, sd=0.01), c(2,nVar))
 d <- rnorm(2, mean=0, sd=1)
 Lmd <- array(rnorm(2, mean=0, sd=1), c(2,1))
-A <- array(rnorm(2*nVar*2, mean=0, sd=0.01), c(2,nVar))
+A <- array(rnorm(2*nVar, mean=0, sd=0.01), c(2,nVar))
 
 K <- array(0, c(2,1))
 eta <- eta_ <- array(0, c(N,Nt,2))
