@@ -107,6 +107,10 @@ for (i in 1:N){
 }
 sumLogLL <- sum(logLL)
 
+###############################################################################
+###############################################################################
+###############################################################################
+
 # derivatives
 # step 1
 dv <- array(0, c(2,1))
@@ -138,10 +142,9 @@ for (i in 1:N){
   }
 }
 
-lr <- 0.01
-d <- d + lr * sign(dd)
-Lmd <- Lmd + lr * sign(dLmd)
-A <- A + lr * sign(dA)
+d <- d - sumLogLL / dd
+Lmd <- Lmd - sumLogLL / dLmd
+A <- A - sumLogLL / dA
 
 dv <- array(0, c(2,1))
 dF <- array(0, c(2,1))
@@ -173,7 +176,6 @@ for (i in 1:N){
   }
 }
 
-lr <- 0.01
-alpha <- alpha + lr * sign(dalpha)
-beta <- beta + lr * sign(dbeta)
-gamma <- gamma + lr * sign(dgamma)
+alpha <- alpha - sumLogLL / dalpha
+beta <- beta - sumLogLL / dbeta
+gamma <- gamma - sumLogLL / dgamma
